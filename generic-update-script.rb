@@ -168,21 +168,22 @@ parser = Dependabot::FileParsers.for_package_manager(package_manager).new(
 
 dependencies = parser.parse
 
+npm_auth_credentials = nil
+
+if npm_auth_token
+  npm_auth_credentials = [{
+    "type": "npm-registry",
+    "url": "https://registry.npmjs.org",
+    "token": npm_auth_token
+  }]
+end
+
+puts npm_auth_credentials
+
 dependencies.select(&:top_level?).each do |dep|
   #########################################
   # Get update details for the dependency #
   #########################################
-  npm_auth_credentials = nil
-
-  if npm_auth_token
-    npm_auth_credentials = [{
-      "type": "npm-registry",
-      "url": "https://registry.npmjs.org",
-      "token": npm_auth_token
-    }]
-  end
-
-  puts npm_auth_credentials
 
   checker = Dependabot::UpdateCheckers.for_package_manager(package_manager).new(
     dependency: dep,
@@ -215,7 +216,7 @@ dependencies.select(&:top_level?).each do |dep|
   updater = Dependabot::FileUpdaters.for_package_manager(package_manager).new(
     dependencies: updated_deps,
     dependency_files: files,
-    credentials: credentials,
+    credentials: npm_auth_credentials || credentials,
   )
 
   updated_files = updater.updated_dependency_files
