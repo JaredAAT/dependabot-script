@@ -142,6 +142,12 @@ else
   )
 end
 
+############################
+# Check for dependabot.yml #
+############################
+puts "Checking for a Dependabot.yml file"
+
+
 ##############################
 # Fetch the dependency files #
 ##############################
