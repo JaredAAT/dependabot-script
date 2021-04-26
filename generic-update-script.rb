@@ -174,9 +174,9 @@ dependencies.select(&:top_level?).each do |dep|
   #########################################
   npm_auth_credentials = nil
   if npm_auth_token
-    npm_auth_credentials = {
+    npm_auth_credentials = [{
       token: npm_auth_token
-    }
+    }]
   end
   checker = Dependabot::UpdateCheckers.for_package_manager(package_manager).new(
     dependency: dep,
