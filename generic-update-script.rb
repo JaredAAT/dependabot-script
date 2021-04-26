@@ -45,6 +45,8 @@ branch = ENV["BRANCH"]
 # - terraform
 package_manager = ENV["PACKAGE_MANAGER"] || "bundler"
 
+npm_auth_token = ENV["NPM_TOKEN"] || nil
+
 if ENV["GITHUB_ENTERPRISE_ACCESS_TOKEN"]
   credentials << {
     "type" => "git_source",
@@ -170,10 +172,16 @@ dependencies.select(&:top_level?).each do |dep|
   #########################################
   # Get update details for the dependency #
   #########################################
+  npm_auth_credentials = nil
+  if npm_auth_token
+    npm_auth_credentials = {
+      token: npm_auth_token
+    }
+  end
   checker = Dependabot::UpdateCheckers.for_package_manager(package_manager).new(
     dependency: dep,
     dependency_files: files,
-    credentials: credentials,
+    credentials: npm_auth_credentials || credentials,
   )
 
   next if checker.up_to_date?
