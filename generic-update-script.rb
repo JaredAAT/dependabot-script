@@ -173,6 +173,7 @@ dependencies.select(&:top_level?).each do |dep|
   # Get update details for the dependency #
   #########################################
   npm_auth_credentials = nil
+
   if npm_auth_token
     npm_auth_credentials = [{
       "type": "npm-registry",
@@ -180,6 +181,9 @@ dependencies.select(&:top_level?).each do |dep|
       "token": npm_auth_token
     }]
   end
+
+  puts npm_auth_credentials
+
   checker = Dependabot::UpdateCheckers.for_package_manager(package_manager).new(
     dependency: dep,
     dependency_files: files,
