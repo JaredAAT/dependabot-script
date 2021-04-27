@@ -176,8 +176,6 @@ if npm_auth_token
   }
 end
 
-puts npm_auth_credentials
-
 dependencies.select(&:top_level?).each do |dep|
   #########################################
   # Get update details for the dependency #
