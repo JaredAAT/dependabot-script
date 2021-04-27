@@ -29,7 +29,7 @@ branch = ENV["BRANCH"]
 
 # Name of the package manager you'd like to do the update for. Options are:
 # - bundler
-# - pip (includes pipenv)
+# - pip (includes pipenv)f
 # - npm_and_yarn
 # - maven
 # - gradle
@@ -47,7 +47,7 @@ package_manager = ENV["PACKAGE_MANAGER"] || "bundler"
 
 if ENV["NPM_TOKEN"]
   credentials << {
-    "type": "npm-registry",
+    "type": "npm_registry",
     "url": "https://registry.npmjs.org",
     "token": ENV["NPM_TOKEN"]
   }
