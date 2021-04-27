@@ -45,7 +45,13 @@ branch = ENV["BRANCH"]
 # - terraform
 package_manager = ENV["PACKAGE_MANAGER"] || "bundler"
 
-npm_auth_token = ENV["NPM_TOKEN"] || nil
+if ENV["NPM_TOKEN"]
+  credentials << {
+    "type": "npm-registry",
+    "url": "https://registry.npmjs.org",
+    "token": ENV["NPM_TOKEN"]
+  }
+end
 
 if ENV["GITHUB_ENTERPRISE_ACCESS_TOKEN"]
   credentials << {
@@ -167,14 +173,6 @@ parser = Dependabot::FileParsers.for_package_manager(package_manager).new(
 )
 
 dependencies = parser.parse
-
-if npm_auth_token
-  credentials << {
-    "type": "npm-registry",
-    "url": "https://registry.npmjs.org",
-    "token": npm_auth_token
-  }
-end
 
 dependencies.select(&:top_level?).each do |dep|
   #########################################
