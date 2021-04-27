@@ -48,7 +48,7 @@ package_manager = ENV["PACKAGE_MANAGER"] || "bundler"
 if ENV["NPM_TOKEN"]
   credentials << {
     "type" => "npm_registry",
-    "url" => "https://registry.npmjs.org",
+    "registry" => "https://registry.npmjs.org",
     "token" => ENV["NPM_TOKEN"]
   }
 end
