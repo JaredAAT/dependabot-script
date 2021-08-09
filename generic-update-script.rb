@@ -29,7 +29,7 @@ branch = ENV["BRANCH"]
 
 # Name of the package manager you'd like to do the update for. Options are:
 # - bundler
-# - pip (includes pipenv)f
+# - pip (includes pipenv)
 # - npm_and_yarn
 # - maven
 # - gradle
